@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Quản lý tài chính</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Mật Khẩu</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="register_large">ĐĂNG KÝ</string>
+    <string name="signup">Đăng ký</string>
+    <string name="login_large">ĐĂNG NHẬP</string>
+    <string name="login">Đăng nhập</string>
+    <string name="register">Đăng ký</string>
+    <string name="signin">Đăng nhập</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="open_nav">Open Navigation Drawer</string>
+    <string name="close_nav">Close Navigation Drawer</string>
+
+    <!-- TODO: menu -->
+    <string name="home">Trang chủ</string>
+    <string name="setting">Cài đặt</string>
+    <string name="statistical">Thống kê</string>
+    <string name="history">Lịch sử</string>
+    <string name="category">Danh mục</string>
+    <string name="schedule">Lịch trình</string>
+    <string name="logout">Đăng xuất</string>
+    <string name="home_title">TRANG CHỦ</string>
+    <string name="setting_title">CÀI ĐẶT</string>
+    <string name="statistical_title">THỐNG KÊ</string>
+    <string name="history_title">LỊCH SỬ</string>
+    <string name="category_title">DANH MỤC</string>
+    <string name="schedule_title">LỊCH TRÌNH</string>
+    <string name="logout_title">ĐĂNG XUẤT</string>
+
+
+    <!-- TODO: setting -->
+    <string name="account_and_security">Tài khoản và bảo mật</string>
+    <string name="currency">Loại tiền tệ</string>
+    <string name="language">Ngôn ngữ</string>
+    <string name="notification">Thông báo</string>
+
+</resources>

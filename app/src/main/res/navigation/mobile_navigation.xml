@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.project.financialManagement.fragment.Home"
+        android:label="@string/home_title"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.project.financialManagement.fragment.SettingFragment"
+        android:label="@string/setting_title"
+        tools:layout="@layout/fragment_setting" />
+
+    <fragment
+        android:id="@+id/nav_category"
+        android:name="com.project.financialManagement.fragment.CategoryFragment"
+        android:label="@string/category_title"
+        tools:layout="@layout/fragment_category" />
+
+    <fragment
+        android:id="@+id/nav_coin"
+        android:name="com.project.financialManagement.fragment.Coin"
+        android:label="@string/history_title"
+        tools:layout="@layout/fragment_coin" />
+
+    <fragment
+        android:id="@+id/nav_statistical"
+        android:name="com.project.financialManagement.fragment.Statistical"
+        android:label="@string/statistical_title"
+        tools:layout="@layout/fragment_statistical" />
+
+    <fragment
+        android:id="@+id/nav_schedule"
+        android:name="com.project.financialManagement.fragment.ScheduleFragment"
+        android:label="@string/schedule_title"
+        tools:layout="@layout/fragment_schedule" >
+        <action
+            android:id="@+id/action_schedule_to_date_rang_picker"
+            app:destination="@id/nav_date_rang_picker" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_date_rang_picker"
+        android:name="com.project.financialManagement.fragment.DateRangPickerFragment"
+        android:label="DATE RANG PICKER"
+        tools:layout="@layout/fragment_date_rang_picker" />
+</navigation>

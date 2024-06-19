@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="text">#DE000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="green">#00af5e</color>
+    <color name="red">#e73e51</color>
+    <color name="yellow">#f5b741</color>
+    <color name="primary">#FF53B175</color>
+<!--    <color name="primary">#f15850</color>-->
+
+    <color name="primary_text">#53B175</color>
+<!--    <color name="primary_text">#C7F15850</color>-->
+
+    <color name="primary_10">#1953B175</color>
+    <color name="primary_30">#4D53B175</color>
+
+<!--    <color name="primary_10">#1AF15850</color>-->
+<!--    <color name="primary_30">#4DF15850</color>-->
+    <color name="parent">#0000</color>
+    <color name="gray_4">#4BE8EAF6</color>
+    <color name="line">#797A79</color>
+    <color name="money">#FF9800</color>
+
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="tabTextColor">#808080</color>
+
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="lavender">#8692f7</color>
+</resources>
