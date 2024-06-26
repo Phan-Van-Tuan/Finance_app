@@ -15,9 +15,6 @@
     <string name="login">Đăng nhập</string>
     <string name="register">Đăng ký</string>
     <string name="signin">Đăng nhập</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="open_nav">Open Navigation Drawer</string>
-    <string name="close_nav">Close Navigation Drawer</string>
 
     <!-- TODO: menu -->
     <string name="home">Trang chủ</string>
@@ -34,6 +31,16 @@
     <string name="category_title">DANH MỤC</string>
     <string name="schedule_title">LỊCH TRÌNH</string>
     <string name="logout_title">ĐĂNG XUẤT</string>
+    <string name="add_transaction_title">ADD TRANSACTION</string>
+    <string name="date_rang_picker_title">DATE RANG PICKER</string>
+
+    <!-- TODO: add transaction -->
+    <string name="time">Thời gian</string>
+    <string name="target">Số tiền</string>
+    <string name="description">Mô tả</string>
+    <string name="save">LƯU</string>
+    <string name="revenues">Thu nhập</string>
+    <string name="expenses">Chi phí</string>
 
 
     <!-- TODO: setting -->
@@ -41,5 +48,9 @@
     <string name="currency">Loại tiền tệ</string>
     <string name="language">Ngôn ngữ</string>
     <string name="notification">Thông báo</string>
+
+    <!-- TODO: category -->
+    <string name="title">Tiêu đề</string>
+    <string name="icon">Nhãn</string>
 
 </resources>

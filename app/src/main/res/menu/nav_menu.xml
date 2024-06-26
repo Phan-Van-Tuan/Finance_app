@@ -8,27 +8,27 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_home"
+            android:icon="@drawable/icon_home"
             android:title="@string/home"/>
 
         <item
             android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_setting"
+            android:icon="@drawable/icon_setting"
             android:title="@string/setting"/>
 
         <item
             android:id="@+id/nav_statistical"
-            android:icon="@drawable/ic_statistical"
+            android:icon="@drawable/icon_statistical"
             android:title="@string/statistical"/>
 
         <item
             android:id="@+id/nav_coin"
-            android:icon="@drawable/ic_coin"
+            android:icon="@drawable/icon_dollar"
             android:title="@string/history"/>
 
         <item
             android:id="@+id/nav_category"
-            android:icon="@drawable/label"
+            android:icon="@drawable/icon_label_italic"
             android:title="@string/category"/>
         <item
             android:id="@+id/nav_schedule"
@@ -36,7 +36,7 @@
             android:title="@string/schedule"/>
         <item
             android:id="@+id/nav_logout"
-            android:icon="@drawable/ic_log_out"
+            android:icon="@drawable/icon_log_out"
             android:title="@string/logout">
         </item>
     </group>

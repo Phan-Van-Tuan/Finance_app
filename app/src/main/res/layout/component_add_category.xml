@@ -20,6 +20,6 @@
                 android:id="@+id/category_icon"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                app:srcCompat="@android:drawable/ic_input_get" />
+                app:srcCompat="@android:drawable/ic_menu_add" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

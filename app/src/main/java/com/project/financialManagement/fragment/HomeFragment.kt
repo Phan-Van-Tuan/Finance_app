@@ -5,10 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.project.financialManagement.adapter.ListAdapter
 import com.project.financialManagement.helper.SharedPreferencesHelper
 import com.project.financialManagement.helper.TransactionManager
@@ -18,11 +18,13 @@ import com.project.financialManagement.model.TransactionType
 import com.project.financialManagement.model.groupDataByDate
 import java.text.DecimalFormat
 import java.time.LocalDateTime
+import java.time.YearMonth
 
 
-class Home : Fragment() {
+class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,12 +39,18 @@ class Home : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Đảm bảo binding được sử dụng sau khi onCreateView đã khởi tạo nó
-        updateData()
+        loadData()
+        swipeRefreshLayout = binding.swipeRefreshLayout
+        swipeRefreshLayout.setOnRefreshListener {
+            load {
+                loadData()
+                swipeRefreshLayout.isRefreshing = false
+            }
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun updateData() {
-        Toast.makeText(requireActivity(), "update data", Toast.LENGTH_SHORT).show()
+    fun loadData() {
         val sh = SharedPreferencesHelper(requireContext())
         val coinCode = CoinModel.values().first { coin -> coin.id == sh.getCoinId()}
         binding.typeCoin.text = coinCode.toString()
@@ -58,9 +66,10 @@ class Home : Fragment() {
 
         // Nhóm dữ liệu theo ngày
         val currentDate = LocalDateTime.now()
-        val startOfWeek = currentDate.toLocalDate().minusDays(currentDate.dayOfWeek.value.toLong() - 1).atStartOfDay()
-        val endOfWeek = startOfWeek.plusDays(6).plusHours(23).plusMinutes(59).plusSeconds(59)
-        val expenses = dh.getAllTransactionsInTime(startOfWeek, endOfWeek)
+        val currentYearMonth = YearMonth.from(currentDate)
+        val startOfMonth = currentYearMonth.atDay(1).atStartOfDay()
+        val endOfMonth = currentYearMonth.atEndOfMonth().atTime(23, 59, 59)
+        val expenses = dh.getAllTransactionsInTime(startOfMonth, endOfMonth)
         val groupedDataList: List<Any> = groupDataByDate(expenses)
 
         // Thiết lập adapter cho RecyclerView
@@ -71,6 +80,22 @@ class Home : Fragment() {
         listHistory.setHasFixedSize(true)
     }
 
+    private fun load(callback: () -> Unit) {
+        // Giả lập quá trình tải dữ liệu
+        // Trong thực tế, bạn có thể gọi API hoặc lấy dữ liệu từ cơ sở dữ liệu
+        Thread {
+            // Giả lập độ trễ của mạng
+            Thread.sleep(1000)
+            // Cập nhật giao diện trên luồng chính
+            activity?.runOnUiThread {
+                // Cập nhật adapter của RecyclerView nếu cần
+                // recyclerView.adapter?.notifyDataSetChanged()
+
+                // Gọi lại callback để dừng biểu tượng tải
+                callback()
+            }
+        }.start()
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

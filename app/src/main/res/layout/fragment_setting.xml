@@ -27,7 +27,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/account" />
+                    android:src="@drawable/icon_personal" />
 
             </androidx.cardview.widget.CardView>
 
@@ -70,7 +70,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/dollar" />
+                    android:src="@drawable/icon_coin" />
             </androidx.cardview.widget.CardView>
 
             <TextView
@@ -123,7 +123,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/language" />
+                    android:src="@drawable/icon_language" />
             </androidx.cardview.widget.CardView>
 
             <TextView
@@ -167,7 +167,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/notification" />
+                    android:src="@drawable/icon_bell" />
             </androidx.cardview.widget.CardView>
 
             <com.google.android.material.materialswitch.MaterialSwitch
@@ -180,6 +180,49 @@
                 android:layout_height="48dp"
                 android:layout_gravity="center"/>
 
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/primary"/>
+        <LinearLayout
+            android:id="@+id/layout_warring"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp">
+            <androidx.cardview.widget.CardView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="4dp"
+                app:cardCornerRadius="60dp">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/icon_language" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="8dp"
+                android:text="@string/language"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/limit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="16dp"
+                android:text="EN"
+                android:textColor="@color/text"
+                android:textSize="16dp" />
         </LinearLayout>
 
         <View

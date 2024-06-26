@@ -18,16 +18,10 @@
         android:theme="@style/Theme.financialManagement"
         tools:targetApi="31">
         <activity
-            android:name=".activity.AddTransaction"
-            android:exported="false" />
-        <activity
             android:name=".activity.AddTransactionActivity"
             android:exported="false" />
         <activity
             android:name=".activity.SignupActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.PersonalActivity"
             android:exported="false" />
         <activity
             android:name=".activity.SigninActivity"

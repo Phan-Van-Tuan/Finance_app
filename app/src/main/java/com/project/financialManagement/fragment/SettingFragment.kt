@@ -1,13 +1,18 @@
 package com.project.financialManagement.fragment
 
+import android.Manifest
 import android.content.Context
+import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.project.financialManagement.DropdownMenu
 import com.project.financialManagement.databinding.FragmentSettingBinding
 import com.project.financialManagement.helper.SharedPreferencesHelper
@@ -17,15 +22,14 @@ import java.util.Locale
 
 
 class SettingFragment : Fragment() {
-
     private var _binding: FragmentSettingBinding? = null
     private val binding get() = _binding!!
+    private lateinit var sharedPreferences: SharedPreferencesHelper
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -33,52 +37,71 @@ class SettingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupUI()
-        Toast.makeText(requireActivity(), "onViewCreated", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        // Ensure UI is updated when fragment is resumed
-        setupUI()
-        Toast.makeText(requireActivity(), "onResume", Toast.LENGTH_SHORT).show()
     }
 
     private fun setupUI() {
-        val sh = SharedPreferencesHelper(requireContext())
+        val sharedPreferences = SharedPreferencesHelper(requireContext())
 
-        // Coin part
-        val listCoin = CoinModel.values().map { it.value } as ArrayList<String>
+        setupCoinDropdown(sharedPreferences)
+        setupLanguageDropdown(sharedPreferences)
+        setupNotificationSwitch()
+    }
 
-        var coinCode = CoinModel.values().first { coin -> coin.id == sh.getCoinId() }
-        binding.currency.text = coinCode.toString()
-
-        val coinMenu = DropdownMenu(requireContext(), listCoin) { _, position ->
-            sh.saveCoinId(position)
-            coinCode = CoinModel.values().first { coin -> coin.id == position }
-            binding.currency.text = coinCode.toString()
+    private fun setupCoinDropdown(sharedPreferences: SharedPreferencesHelper) {
+        val coinList = CoinModel.values().map { it.value }
+        val currentCoin = CoinModel.values().first { it.id == sharedPreferences.getCoinId() }
+        binding.currency.text = currentCoin.toString()
+        val coinMenu = DropdownMenu(requireContext(), coinList) { _, position ->
+            sharedPreferences.saveCoinId(position)
+            val selectedCoin = CoinModel.values().first { it.id == position }
+            binding.currency.text = selectedCoin.toString()
         }
 
         binding.layoutCurrency.setOnClickListener {
             coinMenu.show()
         }
+    }
 
-        // Language part
-        val listLang = LanguageModel.values().map { it.value } as ArrayList<String>
-        var langCode =
-            LanguageModel.values().first { lang -> lang.position == sh.getLangPosition() }
-        binding.language.text = langCode.code
-        val languageMenu = DropdownMenu(requireContext(), listLang) { _, position ->
-            langCode = LanguageModel.values().first { lang -> lang.position == position }
-            binding.language.text = langCode.code
-            sh.saveLangPosition(position)
-            setLocale(requireActivity(), langCode.location)
+    private fun setupLanguageDropdown(sharedPreferences: SharedPreferencesHelper) {
+        val languageList = LanguageModel.values().map { it.value }
+        val currentLanguage = LanguageModel.values().first { it.position == sharedPreferences.getLangPosition() }
+        Toast.makeText(requireContext(), "${currentLanguage.code}", Toast.LENGTH_SHORT).show()
+        setLocale(requireContext(), currentLanguage.code)
+        binding.language.text = currentLanguage.code
+        val languageMenu = DropdownMenu(requireContext(), languageList) { _, position ->
+            val selectedLanguage = LanguageModel.values().first { it.position == position }
+            sharedPreferences.saveLangPosition(position)
+            setLocale(requireActivity(), selectedLanguage.code)
+            Toast.makeText(requireActivity(), "${selectedLanguage.code}", Toast.LENGTH_SHORT).show()
             recreateActivity()
-//            refreshFragment()
-            updateUIAfterLanguageChange()
         }
 
         binding.layoutLanguage.setOnClickListener {
             languageMenu.show()
+        }
+    }
+
+    private fun setupNotificationSwitch() {
+        binding.swNotify.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                requestNotificationPermission()
+            } else {
+                Toast.makeText(requireActivity(), "not checked", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun requestNotificationPermission() {
+        val permissionCheck = ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.POST_NOTIFICATIONS
+        )
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                NOTIFICATION_PERMISSION_REQUEST_CODE
+            )
         }
     }
 
@@ -89,32 +112,18 @@ class SettingFragment : Fragment() {
         config.setLocale(locale)
         context.resources.updateConfiguration(config, context.resources.displayMetrics)
         context.createConfigurationContext(config)
-        println("setting info: Locale set to: $languageCode")
     }
 
     private fun recreateActivity() {
         activity?.recreate()
-        println("setting info: Activity recreated")
-    }
-
-//    private fun refreshFragment() {
-//        println("setting info: Fragment refreshed")
-//        parentFragmentManager.beginTransaction().detach(this).attach(this).commit()
-//    }
-
-    private fun updateUIAfterLanguageChange() {
-        // Update any UI elements that should reflect the new language
-        // For example:
-        // binding.currency.text = updatedValue
-        // binding.language.text = updatedValue
-        // ...
-        // Make sure to invalidate the views to apply changes
-        binding.root.invalidate()
-        Toast.makeText(requireActivity(), "updateUIAfterLanguageChange", Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        private const val NOTIFICATION_PERMISSION_REQUEST_CODE = 112
     }
 }

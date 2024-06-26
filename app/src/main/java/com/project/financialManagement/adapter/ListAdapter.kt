@@ -12,7 +12,6 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.project.financialManagement.R
 import com.project.financialManagement.helper.CategoryManager
-import com.project.financialManagement.helper.DatabaseHelper
 import com.project.financialManagement.helper.SharedPreferencesHelper
 import com.project.financialManagement.model.CoinModel
 import com.project.financialManagement.model.DataItem1
@@ -76,7 +75,7 @@ class ListAdapter (private val context: Context, private var dataList: List<Any>
                 icon.setImageResource(iconId)
                 color.setBackgroundResource(bgId)
             } else {
-                icon.setImageResource(R.drawable.ic_check)
+                icon.setImageResource(R.drawable.icon_check)
                 color.setBackgroundResource(R.drawable.bg_primary)
             }
         }

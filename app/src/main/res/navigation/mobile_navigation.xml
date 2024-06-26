@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.project.financialManagement.fragment.Home"
+        android:name="com.project.financialManagement.fragment.HomeFragment"
         android:label="@string/home_title"
         tools:layout="@layout/fragment_home" />
 
@@ -25,13 +25,13 @@
 
     <fragment
         android:id="@+id/nav_coin"
-        android:name="com.project.financialManagement.fragment.Coin"
+        android:name="com.project.financialManagement.fragment.HistoryFragment"
         android:label="@string/history_title"
-        tools:layout="@layout/fragment_coin" />
+        tools:layout="@layout/fragment_history" />
 
     <fragment
         android:id="@+id/nav_statistical"
-        android:name="com.project.financialManagement.fragment.Statistical"
+        android:name="com.project.financialManagement.fragment.StatisticalFragment"
         android:label="@string/statistical_title"
         tools:layout="@layout/fragment_statistical" />
 
@@ -48,6 +48,6 @@
     <fragment
         android:id="@+id/nav_date_rang_picker"
         android:name="com.project.financialManagement.fragment.DateRangPickerFragment"
-        android:label="DATE RANG PICKER"
+        android:label="@string/date_rang_picker_title"
         tools:layout="@layout/fragment_date_rang_picker" />
 </navigation>
