@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select Option"
+            android:text="@string/select_option"
             android:textStyle="bold"
             android:textSize="17sp"
             android:padding="10dp"/>
@@ -48,7 +48,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select Time"
+            android:text="@string/select_time"
             android:textStyle="bold"
             android:textSize="17sp"
             android:padding="10dp"/>
@@ -75,7 +75,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select Date"
+            android:text="@string/select_date"
             android:textStyle="bold"
             android:textSize="17sp"
             android:padding="10dp"/>
@@ -102,7 +102,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select Weekday"
+            android:text="@string/select_weekday"
             android:textStyle="bold"
             android:textSize="17sp"
             android:padding="10dp"/>
@@ -129,7 +129,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select Month"
+            android:text="@string/select_month"
             android:textStyle="bold"
             android:textSize="17sp"
             android:padding="10dp"/>
@@ -154,7 +154,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Start Date"
+            android:text="@string/start_date"
             android:textStyle="bold"
             android:textSize="17sp"
             android:padding="10dp"/>
@@ -178,7 +178,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="End Date"
+            android:text="@string/end_date"
             android:textStyle="bold"
             android:textSize="17sp"
             android:padding="10dp"/>
@@ -201,7 +201,7 @@
         android:gravity="center"
         android:layout_marginVertical="12dp"
         android:padding="6dp"
-        android:text="SAVE"
+        android:text="@string/save"
         android:textColor="@color/white"
         android:textSize="18dp"
         app:cornerRadius="10dp" />

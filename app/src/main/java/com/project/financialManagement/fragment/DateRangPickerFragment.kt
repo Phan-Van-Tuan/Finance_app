@@ -45,8 +45,8 @@ class DateRangPickerFragment : Fragment() {
         val timeFormat = SimpleDateFormat("HH:mm")
 
         binding.tvStartDate.text = dateTimeFormat.format(current.time)
-        binding.tvEndDate.text = "Cho đến khi được thay đổi"
-        binding.tvOption.text = "Hằng tháng"
+        binding.tvEndDate.text = requireContext().getString(R.string.until_changed)
+        binding.tvOption.text = requireContext().getString(R.string.monthly)
         binding.tvTime.text = timeFormat.format(current.apply {
             set(Calendar.HOUR_OF_DAY, 0)
             set(Calendar.MINUTE, 0)
@@ -59,7 +59,11 @@ class DateRangPickerFragment : Fragment() {
     }
 
     private fun setupDropdownMenu() {
-        val options = listOf("Hằng ngày", "Hằng tuần", "Hằng tháng", "Hằng năm")
+        val options = listOf(
+            requireContext().getString(R.string.daily),
+            requireContext().getString(R.string.weekly),
+            requireContext().getString(R.string.monthly),
+            requireContext().getString(R.string.yearly))
         val optionMenu = DropdownMenu(requireActivity(), options) { selectedItem, position ->
             binding.tvOption.text = selectedItem
             when (position) {
@@ -91,7 +95,7 @@ class DateRangPickerFragment : Fragment() {
                 val repeat = "Lặp lại ${binding.tvOption.text} vào ${binding.tvTime.text} ${binding.tvWeekdays.text} ${binding.tvDate.text} ${binding.tvMonth.text}"
                 Toast.makeText(requireContext(), repeat, Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(requireContext(), "Please select all fields", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), requireContext().getString(R.string.please_select_all_fields), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -138,12 +142,12 @@ class DateRangPickerFragment : Fragment() {
         dayPicker.value = 1
 
         val alertDialog = AlertDialog.Builder(requireContext())
-            .setTitle("Select day of months")
+            .setTitle(requireContext().getString(R.string.select_day_of_months))
             .setView(dialogView)
-            .setPositiveButton("Ok") { _, _ ->
+            .setPositiveButton(requireContext().getString(R.string.ok)) { _, _ ->
                 binding.tvDate.text = dayPicker.value.toString()
             }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(requireContext().getString(R.string.cancel), null)
             .create()
 
         alertDialog.show()
@@ -157,12 +161,12 @@ class DateRangPickerFragment : Fragment() {
         monthPicker.value = 1
 
         val alertDialog = AlertDialog.Builder(requireContext())
-            .setTitle("Select month of years")
+            .setTitle(requireContext().getString(R.string.select_month_of_years))
             .setView(dialogView)
-            .setPositiveButton("Ok") { _, _ ->
+            .setPositiveButton(requireContext().getString(R.string.ok)) { _, _ ->
                 binding.tvMonth.text = monthPicker.value.toString()
             }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(requireContext().getString(R.string.cancel), null)
             .create()
 
         alertDialog.show()
@@ -176,12 +180,12 @@ class DateRangPickerFragment : Fragment() {
         weekdayPicker.value = 2
 
         val alertDialog = AlertDialog.Builder(requireContext())
-            .setTitle("Select weekday of weeks")
+            .setTitle(requireContext().getString(R.string.select_weekday_of_weeks))
             .setView(dialogView)
-            .setPositiveButton("Ok") { _, _ ->
+            .setPositiveButton(requireContext().getString(R.string.ok)) { _, _ ->
                 binding.tvWeekdays.text = getWeekdayString(weekdayPicker.value)
             }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(requireContext().getString(R.string.cancel), null)
             .create()
 
         alertDialog.show()

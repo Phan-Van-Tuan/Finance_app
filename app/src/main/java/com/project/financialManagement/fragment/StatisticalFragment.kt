@@ -15,6 +15,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.project.financialManagement.R
 import com.project.financialManagement.databinding.FragmentStatisticalBinding
+import com.project.financialManagement.helper.FormatHelper
 import com.project.financialManagement.helper.TransactionManager
 import com.project.financialManagement.model.Transaction
 import com.project.financialManagement.model.TransactionType
@@ -52,7 +53,7 @@ class StatisticalFragment : Fragment() {
         // Click listener for EditText to show MonthYearPickerDialog
         binding.monthYearEditText.setOnClickListener { showMonthYearPickerDialog() }
 
-        setupViewPager()
+//        setupViewPager()
     }
 
     private fun setupViewPager() {
@@ -62,8 +63,8 @@ class StatisticalFragment : Fragment() {
         viewPager.adapter = ViewPagerAdapter(this)
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = when (position) {
-                0 -> "Savings"
-                1 -> "Expenses"
+                0 -> requireContext().getString(R.string.revenues)
+                1 -> requireContext().getString(R.string.expenses)
                 else -> null
             }
         }.attach()
@@ -115,6 +116,7 @@ class StatisticalFragment : Fragment() {
         val month = calendar.get(Calendar.MONTH) + 1
         binding.monthYearEditText.setText(String.format("%02d/%d", month, year))
         updateData()
+        setupViewPager()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -129,19 +131,14 @@ class StatisticalFragment : Fragment() {
         val total = dh.getTotalInTime(startOfMonth, endOfMonth)
         val allTransactions = dh.getAllTransactionsInTime(startOfMonth, endOfMonth)
 
-        // Phân loại giao dịch theo TransactionType và Category
-        val transactionsByTypeAndCategory = allTransactions.groupBy { it.type }.mapValues { entry ->
-            entry.value.groupBy { it.category }
-        }
-
         transactionsByRevenue = allTransactions.filter { it.type == TransactionType.INCOME }
         transactionsByExpense = allTransactions.filter { it.type == TransactionType.EXPENSE }
 
 
 
-        binding.revenues.text = revenues.toString()
-        binding.expenses.text = expenses.toString()
-        binding.total.text = total.toString()
+        binding.revenues.text = FormatHelper.formatCurrency(revenues, requireContext())
+        binding.expenses.text = FormatHelper.formatCurrency(expenses, requireContext())
+        binding.total.text = FormatHelper.formatCurrency(total, requireContext())
     }
 
     private inner class ViewPagerAdapter(

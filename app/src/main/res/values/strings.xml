@@ -14,6 +14,8 @@
     <string name="login"> Login</string>
     <string name="register">Register</string>
     <string name="signin">Sign In</string>
+    <string name="surplus">Surplus</string>
+
 
     <!-- TODO: menu -->
     <string name="home">Home</string>
@@ -24,7 +26,7 @@
     <string name="schedule">Schedule</string>
     <string name="logout">Logout</string>
     <string name="home_title">HOME</string>
-    <string name="setting_title">SETTINGS</string>
+    <string name="setting_title">SETTING</string>
     <string name="statistical_title">STATISTICAL</string>
     <string name="history_title">HISTORY</string>
     <string name="category_title">CATEGORY</string>
@@ -41,6 +43,14 @@
     <string name="save">SAVE</string>
     <string name="revenues">Revenues</string>
     <string name="expenses">Expenses</string>
+    <string name="empty">No description yet</string>
+    <string name="select_option">Select Option</string>
+    <string name="select_time">Select Time</string>
+    <string name="select_date">Select Date</string>
+    <string name="select_weekday">Select Weekday</string>
+    <string name="select_month">Select Month</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
 
 
     <!-- TODO: setting -->
@@ -48,9 +58,24 @@
     <string name="currency">Currency</string>
     <string name="language">Language</string>
     <string name="notification">Notification</string>
+    <string name="english">English</string>
+    <string name="vietnamese">Vietnamese</string>
 
 
     <!-- TODO: category -->
     <string name="title">Title</string>
     <string name="icon">Icon</string>
+
+    <!-- TODO: option -->
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="daily">Daily</string>
+    <string name="weekly">Weekly</string>
+    <string name="monthly">Monthly</string>
+    <string name="yearly">Yearly</string>
+    <string name="until_changed">Until Changed</string>
+    <string name="please_select_all_fields">Please select all fields</string>
+    <string name="select_day_of_months">Select day of months</string>
+    <string name="select_month_of_years">Select month of years</string>
+    <string name="select_weekday_of_weeks">Select weekday of weeks</string>
 </resources>

@@ -25,7 +25,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/income"
-                    android:text="Revenue"
+                    android:text="@string/revenues"
                     android:textStyle="bold"
                     android:gravity="center"
                     android:textSize="17dp"
@@ -44,7 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/spending"
-                    android:text="Expenses"
+                    android:text="@string/expenses"
                     android:gravity="center"
                     android:textStyle="bold"
                     android:textSize="17dp"
@@ -66,7 +66,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Select Category"
+                    android:text="@string/category"
                     android:textStyle="bold"
                     android:textSize="17dp"
                     android:padding="10dp"/>
@@ -91,7 +91,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Select Time"
+                    android:text="@string/time"
                     android:textStyle="bold"
                     android:textSize="17dp"
                     android:padding="10dp"/>
@@ -114,14 +114,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Target"
+                    android:text="@string/target"
                     android:textStyle="bold"
                     android:textSize="17dp"
                     android:padding="10dp"/>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
 
                     <EditText
                         android:id="@+id/total"
@@ -131,26 +127,7 @@
                         android:gravity="center_vertical"
                         android:inputType="numberDecimal"
                         android:padding="10dp"
-                        android:textColor="@color/parent"
-                        android:textCursorDrawable="@color/parent"
-                        android:textSize="17dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/total_display"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:gravity="center_vertical"
-                        android:padding="10dp"
-                        android:textSize="17dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:textSize="17dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -162,7 +139,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Description (optional)"
+                    android:text="@string/description"
                     android:textStyle="bold"
                     android:textSize="17dp"
                     android:padding="10dp"/>
@@ -174,6 +151,7 @@
                     android:background="@drawable/bg_primary_10"
                     android:minHeight="140dp"
                     android:padding="10dp"
+                    android:hint="@string/empty"
                     android:ems="10"
                     android:gravity="start|top"
                     android:inputType="textMultiLine" />
@@ -187,7 +165,7 @@
                 android:gravity="center"
                 android:layout_marginVertical="12dp"
                 android:padding="6dp"
-                android:text="SAVE"
+                android:text="@string/save"
                 android:textColor="@color/white"
                 android:textSize="18dp"
                 app:cornerRadius="10dp" />

@@ -15,6 +15,7 @@
     <string name="login">Đăng nhập</string>
     <string name="register">Đăng ký</string>
     <string name="signin">Đăng nhập</string>
+    <string name="surplus">Số dư</string>
 
     <!-- TODO: menu -->
     <string name="home">Trang chủ</string>
@@ -31,8 +32,8 @@
     <string name="category_title">DANH MỤC</string>
     <string name="schedule_title">LỊCH TRÌNH</string>
     <string name="logout_title">ĐĂNG XUẤT</string>
-    <string name="add_transaction_title">ADD TRANSACTION</string>
-    <string name="date_rang_picker_title">DATE RANG PICKER</string>
+    <string name="add_transaction_title">THÊM GIAO DỊCH</string>
+    <string name="date_rang_picker_title">BỘ CHỌN NGÀY</string>
 
     <!-- TODO: add transaction -->
     <string name="time">Thời gian</string>
@@ -41,6 +42,14 @@
     <string name="save">LƯU</string>
     <string name="revenues">Thu nhập</string>
     <string name="expenses">Chi phí</string>
+    <string name="empty">Chưa có mô tả</string>
+    <string name="select_option">Chọn Tùy Chọn</string>
+    <string name="select_time">Chọn Thời Gian</string>
+    <string name="select_date">Chọn Ngày</string>
+    <string name="select_weekday">Chọn Ngày Trong Tuần</string>
+    <string name="select_month">Chọn Tháng</string>
+    <string name="start_date">Ngày Bắt Đầu</string>
+    <string name="end_date">Ngày Kết Thúc</string>
 
 
     <!-- TODO: setting -->
@@ -48,9 +57,23 @@
     <string name="currency">Loại tiền tệ</string>
     <string name="language">Ngôn ngữ</string>
     <string name="notification">Thông báo</string>
+    <string name="english">Tiếng Anh</string>
+    <string name="vietnamese">Tiếng Việt</string>
 
     <!-- TODO: category -->
     <string name="title">Tiêu đề</string>
     <string name="icon">Nhãn</string>
 
+    <!-- TODO: option -->
+    <string name="ok">Đồng ý</string>
+    <string name="cancel">Hủy</string>
+    <string name="daily">Hằng Ngày</string>
+    <string name="weekly">Hằng Tuần</string>
+    <string name="monthly">Hằng Tháng</string>
+    <string name="yearly">Hằng Năm</string>
+    <string name="until_changed">Cho Đến Khi Được Thay Đổi</string>
+    <string name="please_select_all_fields">Vui lòng chọn tất cả các trường</string>
+    <string name="select_day_of_months">Chọn ngày trong tháng</string>
+    <string name="select_month_of_years">Chọn tháng trong năm</string>
+    <string name="select_weekday_of_weeks">Chọn ngày trong tuần</string>
 </resources>

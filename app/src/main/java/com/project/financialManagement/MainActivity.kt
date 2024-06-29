@@ -1,8 +1,10 @@
 package com.project.financialManagement
 
+import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
@@ -12,6 +14,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -39,11 +42,11 @@ class MainActivity : AppCompatActivity() {
 
         val sharedPreferences = SharedPreferencesHelper(this)
         val currentLanguage = LanguageModel.values().first { it.position == sharedPreferences.getLangPosition() }
-        Toast.makeText(this, "${currentLanguage.code}", Toast.LENGTH_SHORT).show()
         setLocale(this, currentLanguage.code)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
 
+        checkPermission()
         setContentView(binding.root)
         setSupportActionBar(binding.appBarMain.toolbar)
 
@@ -51,7 +54,6 @@ class MainActivity : AppCompatActivity() {
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                Toast.makeText(this, "refresh data", Toast.LENGTH_SHORT).show()
                 // Refresh the data or fragment here
                 refreshData()
             }
@@ -167,4 +169,22 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
+    fun checkPermission() {
+        // Danh sách các quyền cần kiểm tra
+        val permissions = arrayOf(
+            Manifest.permission.POST_NOTIFICATIONS,
+            Manifest.permission.VIBRATE,
+            Manifest.permission.BLUETOOTH_CONNECT
+        )
+
+        val permissionsToRequest = permissions.filter {
+            ActivityCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
+        }
+
+        if (permissionsToRequest.isNotEmpty()) {
+            ActivityCompat.requestPermissions(this, permissionsToRequest.toTypedArray(), 123)
+        }
+    }
+
 }

@@ -88,7 +88,7 @@ class AddTransactionActivity : AppCompatActivity() {
             val description = binding.description.text.toString().trim()
             val type = configRadioGroup(binding.income, binding.spending)
             if(category.isNullOrEmpty() || time.isNullOrEmpty() || total.isNullOrEmpty()) {
-                Toast.makeText(this, "Vui lòng nhập đủ các trường", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, this.getString(R.string.please_select_all_fields), Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
             dh.addTransaction(Transaction(newId, type, time, total.toDouble(), category, description))

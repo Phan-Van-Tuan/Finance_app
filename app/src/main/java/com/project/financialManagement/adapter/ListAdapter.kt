@@ -12,11 +12,10 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.project.financialManagement.R
 import com.project.financialManagement.helper.CategoryManager
+import com.project.financialManagement.helper.FormatHelper
 import com.project.financialManagement.helper.SharedPreferencesHelper
-import com.project.financialManagement.model.CoinModel
 import com.project.financialManagement.model.DataItem1
 import com.project.financialManagement.model.DataItem2
-import java.text.DecimalFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -53,10 +52,7 @@ class ListAdapter (private val context: Context, private var dataList: List<Any>
                 descriptionTextView.text = data.description
             }
 
-            val coinCode = CoinModel.values().first { coin -> coin.id == sh.getCoinId()}
-            val df = DecimalFormat("#,###")
-            val formattedBalance: String = df.format(data.total)
-            priceTextView.text = "$formattedBalance $coinCode"
+            priceTextView.text = FormatHelper.formatCurrency(data.total, context)
 
             val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
             val parsedDate = LocalDateTime.parse(data.date, dateFormatter)
@@ -69,7 +65,7 @@ class ListAdapter (private val context: Context, private var dataList: List<Any>
             val categories = CategoryManager(context).getAllCategories()
             val category = categories.find { it.title ==  data.type}
             val bgId = context.resources.getIdentifier(category?.color ?: "bg_primary", "drawable", context.packageName)
-            val iconId = context.resources.getIdentifier(category?.icon ?: "ic_home", "drawable", context.packageName)
+            val iconId = context.resources.getIdentifier(category?.icon ?: "icon_home", "drawable", context.packageName)
 
             if (iconId != 0 || bgId != 0) { // kiểm tra nếu drawableId hợp lệ
                 icon.setImageResource(iconId)

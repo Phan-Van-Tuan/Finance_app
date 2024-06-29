@@ -206,7 +206,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_primary_10"
                 android:ems="10"
-                android:hint="abc"
+                android:hint="@string/empty"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
                 android:minHeight="140dp"

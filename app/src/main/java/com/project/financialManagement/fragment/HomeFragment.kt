@@ -10,13 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.project.financialManagement.adapter.ListAdapter
-import com.project.financialManagement.helper.SharedPreferencesHelper
 import com.project.financialManagement.helper.TransactionManager
 import com.project.financialManagement.databinding.FragmentHomeBinding
-import com.project.financialManagement.model.CoinModel
+import com.project.financialManagement.helper.FormatHelper
 import com.project.financialManagement.model.TransactionType
 import com.project.financialManagement.model.groupDataByDate
-import java.text.DecimalFormat
 import java.time.LocalDateTime
 import java.time.YearMonth
 
@@ -51,18 +49,7 @@ class HomeFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun loadData() {
-        val sh = SharedPreferencesHelper(requireContext())
-        val coinCode = CoinModel.values().first { coin -> coin.id == sh.getCoinId()}
-        binding.typeCoin.text = coinCode.toString()
-
         val dh = TransactionManager(requireContext())
-        val balance = dh.getBalance(TransactionType.ALL) // Giả sử bạn đã có số tiền cần định dạng
-
-        val df = DecimalFormat("#,###")
-        val formattedBalance: String = df.format(balance)
-        binding.asset.text = formattedBalance
-        binding.income.text = String.format("%.0f", dh.getBalance(TransactionType.INCOME))
-        binding.spend.text = String.format("%.0f", dh.getBalance(TransactionType.EXPENSE))
 
         // Nhóm dữ liệu theo ngày
         val currentDate = LocalDateTime.now()
@@ -78,6 +65,13 @@ class HomeFragment : Fragment() {
         listHistory.adapter = adapter
         listHistory.layoutManager = LinearLayoutManager(requireContext())
         listHistory.setHasFixedSize(true)
+
+        val balance = dh.getBalance(TransactionType.ALL)
+        val expense = dh.getTotalInTime(startOfMonth, endOfMonth, TransactionType.EXPENSE)
+
+        binding.asset.text = FormatHelper.formatCurrency(balance, requireContext())
+        binding.spend.text = FormatHelper.formatCurrency(expense, requireContext())
+        binding.spendPercent.text = String.format("%.1f%%", (expense/3000000)*100)
     }
 
     private fun load(callback: () -> Unit) {

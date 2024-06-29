@@ -14,6 +14,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.project.financialManagement.DropdownMenu
+import com.project.financialManagement.R
 import com.project.financialManagement.databinding.FragmentSettingBinding
 import com.project.financialManagement.helper.SharedPreferencesHelper
 import com.project.financialManagement.model.CoinModel
@@ -63,16 +64,17 @@ class SettingFragment : Fragment() {
     }
 
     private fun setupLanguageDropdown(sharedPreferences: SharedPreferencesHelper) {
-        val languageList = LanguageModel.values().map { it.value }
+//        val languageList = LanguageModel.values().map { it.value }
         val currentLanguage = LanguageModel.values().first { it.position == sharedPreferences.getLangPosition() }
-        Toast.makeText(requireContext(), "${currentLanguage.code}", Toast.LENGTH_SHORT).show()
         setLocale(requireContext(), currentLanguage.code)
         binding.language.text = currentLanguage.code
-        val languageMenu = DropdownMenu(requireContext(), languageList) { _, position ->
+        val languageMenu = DropdownMenu(requireContext(), listOf(
+            requireContext().getString(R.string.english),
+            requireContext().getString(R.string.vietnamese)
+        )) { _, position ->
             val selectedLanguage = LanguageModel.values().first { it.position == position }
             sharedPreferences.saveLangPosition(position)
             setLocale(requireActivity(), selectedLanguage.code)
-            Toast.makeText(requireActivity(), "${selectedLanguage.code}", Toast.LENGTH_SHORT).show()
             recreateActivity()
         }
 
