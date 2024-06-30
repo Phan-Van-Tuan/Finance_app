@@ -126,7 +126,6 @@ class CategoryAdapter(
         val index = categoriesList.indexOfFirst { it.id == item.id }
         if (index != -1) {
             categoriesList[index] = item
-            categoriesList.removeAt(index)
             notifyItemChanged(index)
         }
     }
@@ -134,7 +133,7 @@ class CategoryAdapter(
     fun deleteItem(item: Category) {
         val index = categoriesList.indexOfFirst { it.id == item.id }
         if (index != -1) {
-            categoriesList[index] = item
+            categoriesList.removeAt(index)
             notifyItemRemoved(index)
         }
     }

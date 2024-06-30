@@ -51,6 +51,13 @@
     <string name="start_date">Ngày Bắt Đầu</string>
     <string name="end_date">Ngày Kết Thúc</string>
 
+    <!-- TODO: Home -->
+    <string name="your_status">Trạng Thái Của Bạn</string>
+    <string name="excellent">Xuất Sắc</string>
+    <string name="expenses_during_month">Chi phí trong tháng</string>
+    <string name="your_asset">Số Dư Của Bạn</string>
+    <string name="transactions_this_month">Giao dịch trong tháng này</string>
+
 
     <!-- TODO: setting -->
     <string name="account_and_security">Tài khoản và bảo mật</string>
@@ -59,10 +66,23 @@
     <string name="notification">Thông báo</string>
     <string name="english">Tiếng Anh</string>
     <string name="vietnamese">Tiếng Việt</string>
+    <string name="limit_title">Cảnh Báo Chi Tiêu Tháng</string>
+    <string name="limit_hint">Nhập số tiền</string>
+    <string name="limit_null">Chưa có</string>
 
     <!-- TODO: category -->
     <string name="title">Tiêu đề</string>
     <string name="icon">Nhãn</string>
+    <string name="delete_category">Xóa Danh Mục</string>
+    <string name="delete_category_confirmation_1">Tất cả giao dịch thuộc danh mục</string>
+    <string name="delete_category_confirmation_2">sẽ bị xóa. Bạn có chắc chắn muốn xóa danh mục này không?</string>
+    <string name="delete">Xóa</string>
+    <string name="add_category">Thêm Danh Mục</string>
+    <string name="edit_category">Sửa Danh Mục</string>
+    <string name="add">Thêm</string>
+    <string name="update">Cập Nhật</string>
+    <string name="view_details">Xem Chi Tiết</string>
+    <string name="edit">Sửa</string>
 
     <!-- TODO: option -->
     <string name="ok">Đồng ý</string>

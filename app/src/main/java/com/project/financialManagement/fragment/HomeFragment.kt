@@ -13,6 +13,7 @@ import com.project.financialManagement.adapter.ListAdapter
 import com.project.financialManagement.helper.TransactionManager
 import com.project.financialManagement.databinding.FragmentHomeBinding
 import com.project.financialManagement.helper.FormatHelper
+import com.project.financialManagement.helper.SharedPreferencesHelper
 import com.project.financialManagement.model.TransactionType
 import com.project.financialManagement.model.groupDataByDate
 import java.time.LocalDateTime
@@ -50,6 +51,7 @@ class HomeFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     fun loadData() {
         val dh = TransactionManager(requireContext())
+        val sh = SharedPreferencesHelper(requireContext())
 
         // Nhóm dữ liệu theo ngày
         val currentDate = LocalDateTime.now()
@@ -71,7 +73,11 @@ class HomeFragment : Fragment() {
 
         binding.asset.text = FormatHelper.formatCurrency(balance, requireContext())
         binding.spend.text = FormatHelper.formatCurrency(expense, requireContext())
-        binding.spendPercent.text = String.format("%.1f%%", (expense/3000000)*100)
+        val limitDefault = sh.getLimit()
+        if (limitDefault != null) {
+            binding.spendPercent.text = String.format("%.1f%%", (expense/limitDefault)*100)
+        }
+
     }
 
     private fun load(callback: () -> Unit) {

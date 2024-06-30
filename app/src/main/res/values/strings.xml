@@ -16,7 +16,6 @@
     <string name="signin">Sign In</string>
     <string name="surplus">Surplus</string>
 
-
     <!-- TODO: menu -->
     <string name="home">Home</string>
     <string name="setting">Setting</string>
@@ -34,6 +33,13 @@
     <string name="logout_title">LOGOUT</string>
     <string name="add_transaction_title">ADD TRANSACTION</string>
     <string name="date_rang_picker_title">DATE RANG PICKER</string>
+
+    <!-- TODO: Home -->
+    <string name="your_status">Your Status</string>
+    <string name="excellent">Excellent</string>
+    <string name="expenses_during_month">Expenses during the month</string>
+    <string name="your_asset">Your Asset</string>
+    <string name="transactions_this_month">Transactions this month</string>
 
 
     <!-- TODO: add transaction -->
@@ -60,11 +66,24 @@
     <string name="notification">Notification</string>
     <string name="english">English</string>
     <string name="vietnamese">Vietnamese</string>
+    <string name="limit_title">Monthly Spending Alert</string>
+    <string name="limit_hint">Enter the amount</string>
+    <string name="limit_null">Not yet</string>
 
 
     <!-- TODO: category -->
     <string name="title">Title</string>
     <string name="icon">Icon</string>
+    <string name="delete_category">Delete Category</string>
+    <string name="delete_category_confirmation_1">All transactions under the category </string>
+    <string name="delete_category_confirmation_2">will be deleted. Are you sure you want to delete this category?</string>
+    <string name="delete">Delete</string>
+    <string name="add_category">Add Category</string>
+    <string name="edit_category">Edit Category</string>
+    <string name="add">Add</string>
+    <string name="update">Update</string>
+    <string name="view_details">View Details</string>
+    <string name="edit">Edit</string>
 
     <!-- TODO: option -->
     <string name="ok">Ok</string>

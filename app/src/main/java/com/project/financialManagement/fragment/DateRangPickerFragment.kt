@@ -12,16 +12,22 @@ import android.view.ViewGroup
 import android.widget.NumberPicker
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import com.project.financialManagement.DropdownMenu
 import com.project.financialManagement.R
 import com.project.financialManagement.databinding.FragmentDateRangPickerBinding
+import com.project.financialManagement.model.SharedViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
 class DateRangPickerFragment : Fragment() {
     private var _binding: FragmentDateRangPickerBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -92,8 +98,14 @@ class DateRangPickerFragment : Fragment() {
 
         binding.save.setOnClickListener {
             if (areFieldsValid()) {
-                val repeat = "Lặp lại ${binding.tvOption.text} vào ${binding.tvTime.text} ${binding.tvWeekdays.text} ${binding.tvDate.text} ${binding.tvMonth.text}"
-                Toast.makeText(requireContext(), repeat, Toast.LENGTH_SHORT).show()
+                viewModel.option.value = binding.tvOption.text.toString()
+                viewModel.time.value = binding.tvTime.text.toString()
+                viewModel.weekdays.value = binding.tvWeekdays.text.toString()
+                viewModel.date.value = binding.tvDate.text.toString()
+                viewModel.month.value = binding.tvMonth.text.toString()
+                viewModel.startDate.value = binding.tvStartDate.toString()
+                viewModel.endDate.value = binding.tvEndDate.toString()
+                findNavController().navigate(R.id.action_date_rang_picker_to_schedule)
             } else {
                 Toast.makeText(requireContext(), requireContext().getString(R.string.please_select_all_fields), Toast.LENGTH_SHORT).show()
             }
@@ -101,9 +113,61 @@ class DateRangPickerFragment : Fragment() {
     }
 
     private fun areFieldsValid(): Boolean {
-        // Add logic to validate the required fields
+        // Kiểm tra nếu tất cả các trường đều được điền
+        if (binding.tvStartDate.text.isEmpty() || binding.tvEndDate.text.isEmpty() ||
+            binding.tvOption.text.isEmpty() || binding.tvTime.text.isEmpty() ||
+            binding.tvWeekdays.text.isEmpty() || binding.tvDate.text.isEmpty() ||
+            binding.tvMonth.text.isEmpty()) {
+            return false
+        }
+
+        // Kiểm tra tính hợp lệ của ngày bắt đầu và ngày kết thúc
+        val startDate = binding.tvStartDate.text.toString()
+        val endDate = binding.tvEndDate.text.toString()
+        if (!isValidDate(startDate) || !isValidDate(endDate)) {
+            return false
+        }
+
+        // Kiểm tra nếu ngày bắt đầu trước ngày kết thúc
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val start = sdf.parse(startDate)
+        val end = sdf.parse(endDate)
+        if (start != null && end != null && start.after(end)) {
+            return false
+        }
+
+        // Kiểm tra tính hợp lệ của ngày dựa trên tháng và năm
+        val day = binding.tvDate.text.toString().toIntOrNull()
+        val month = binding.tvMonth.text.toString().toIntOrNull()
+        if (day != null && month != null && !isValidDayOfMonth(day, month)) {
+            return false
+        }
+
         return true
     }
+
+    // Hàm kiểm tra tính hợp lệ của ngày
+    private fun isValidDate(date: String): Boolean {
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        sdf.isLenient = false
+        return try {
+            sdf.parse(date)
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    // Hàm kiểm tra tính hợp lệ của ngày dựa trên tháng và năm
+    private fun isValidDayOfMonth(day: Int, month: Int): Boolean {
+        return when (month) {
+            1, 3, 5, 7, 8, 10, 12 -> day in 1..31
+            4, 6, 9, 11 -> day in 1..30
+            2 -> day in 1..29 // Giả sử luôn hợp lệ trong năm nhuận
+            else -> false
+        }
+    }
+
 
     private fun showDatePicker(textView: TextView) {
         val current = Calendar.getInstance()

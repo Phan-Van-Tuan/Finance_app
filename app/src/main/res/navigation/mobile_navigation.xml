@@ -39,7 +39,7 @@
         android:id="@+id/nav_schedule"
         android:name="com.project.financialManagement.fragment.ScheduleFragment"
         android:label="@string/schedule_title"
-        tools:layout="@layout/fragment_schedule" >
+        tools:layout="@layout/fragment_schedule">
         <action
             android:id="@+id/action_schedule_to_date_rang_picker"
             app:destination="@id/nav_date_rang_picker" />
@@ -49,5 +49,9 @@
         android:id="@+id/nav_date_rang_picker"
         android:name="com.project.financialManagement.fragment.DateRangPickerFragment"
         android:label="@string/date_rang_picker_title"
-        tools:layout="@layout/fragment_date_rang_picker" />
+        tools:layout="@layout/fragment_date_rang_picker">
+        <action
+            android:id="@+id/action_date_rang_picker_to_schedule"
+            app:destination="@id/nav_schedule" />
+    </fragment>
 </navigation>

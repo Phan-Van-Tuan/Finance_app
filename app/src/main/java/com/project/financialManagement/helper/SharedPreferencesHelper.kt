@@ -10,6 +10,7 @@ class SharedPreferencesHelper(context: Context) {
         private const val KEY_NAME = "name"
         private const val KEY_COIN = "coin"
         private const val KEY_LANGUAGE = "language"
+        private const val KEY_LIMIT = "limit"
     }
 
     private val sharedPreferences: SharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
@@ -52,5 +53,16 @@ class SharedPreferencesHelper(context: Context) {
 
     fun getLangPosition(): Int? {
         return sharedPreferences.getInt(KEY_LANGUAGE, 0)
+    }
+
+    fun saveLimit(limit: Float) {
+        with(sharedPreferences.edit()) {
+            putFloat(KEY_LIMIT, limit)
+            apply()
+        }
+    }
+
+    fun getLimit(): Float? {
+        return sharedPreferences.getFloat(KEY_LIMIT, 0f)
     }
 }

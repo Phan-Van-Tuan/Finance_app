@@ -10,12 +10,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.project.financialManagement.DropdownMenu
 import com.project.financialManagement.R
 import com.project.financialManagement.databinding.FragmentScheduleBinding
 import com.project.financialManagement.helper.CategoryManager
 import com.project.financialManagement.helper.CurrencyTextWatcher
+import com.project.financialManagement.model.SharedViewModel
 import com.project.financialManagement.model.TransactionType
 
 
@@ -23,6 +25,7 @@ class ScheduleFragment : Fragment() {
 
     private var _binding: FragmentScheduleBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +43,11 @@ class ScheduleFragment : Fragment() {
         binding.total.addTextChangedListener(CurrencyTextWatcher(binding.total))
         
         val am = requireActivity().getSystemService(Context.ALARM_SERVICE) as? AlarmManager
+
+        viewModel.option.observe(viewLifecycleOwner) { option->
+            // Sử dụng dữ liệu từ ViewModel
+            binding.time.text = "Option: $option on"
+        }
 
         // Check if am is null before using it
         binding.save.setOnClickListener {

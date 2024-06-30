@@ -187,7 +187,7 @@
             android:layout_height="1dp"
             android:background="@color/primary"/>
         <LinearLayout
-            android:id="@+id/layout_warring"
+            android:id="@+id/layout_limit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp">
@@ -201,7 +201,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/icon_language" />
+                    android:src="@drawable/credit_limit" />
             </androidx.cardview.widget.CardView>
 
             <TextView
@@ -209,7 +209,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="8dp"
-                android:text="@string/language"
+                android:text="@string/limit_title"
                 android:layout_weight="1"
                 android:textColor="@color/black"
                 android:textSize="16dp" />
@@ -220,7 +220,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginRight="16dp"
-                android:text="EN"
+                android:text="@string/limit_null"
                 android:textColor="@color/text"
                 android:textSize="16dp" />
         </LinearLayout>

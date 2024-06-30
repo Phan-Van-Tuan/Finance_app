@@ -42,21 +42,21 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Your Status"
+                            android:text="@string/your_status"
                             android:textColor="@android:color/white"
                             android:textSize="16sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Excellent"
+                            android:text="@string/excellent"
                             android:textColor="@android:color/white"
                             android:textSize="24sp"
                             android:textStyle="bold" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Expenses during the month"
+                            android:text="@string/expenses_during_month"
                             android:textColor="@android:color/white"
                             android:textSize="16sp" />
 
@@ -79,7 +79,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="1"
-                                        android:text="24.53%"
+                                        android:text=""
                                         android:textColor="@android:color/white"
                                         android:textSize="18sp"
                                         android:textStyle="bold" />
@@ -88,9 +88,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Your Asset"
+                            android:text="@string/your_asset"
                             android:textColor="@color/red"
-                            android:textSize="20sp"/>
+                            android:textSize="16sp"/>
 
                         <TextView
                             android:id="@+id/asset"
@@ -108,7 +108,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:text="Recent transactions"
+                    android:text="@string/transactions_this_month"
                     android:textSize="20dp"
                     android:textStyle="bold" />
 

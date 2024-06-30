@@ -1,12 +1,16 @@
 package com.project.financialManagement.fragment
 
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -17,6 +21,7 @@ import com.google.android.material.button.MaterialButtonToggleGroup
 import com.project.financialManagement.R
 import com.project.financialManagement.adapter.CategoryAdapter
 import com.project.financialManagement.helper.CategoryManager
+import com.project.financialManagement.helper.TransactionManager
 import com.project.financialManagement.model.Category
 import java.util.UUID
 
@@ -71,8 +76,47 @@ class CategoryFragment : Fragment() {
     }
 
     private fun showDetailCategoryDialog(category: Category) {
-        TODO()
+        // Inflate layout cho AlertDialog từ file XML tạo sẵn
+        val view = LayoutInflater.from(context).inflate(R.layout.layout_category_detail, null)
+
+        // Tạo AlertDialog và thiết lập các thuộc tính
+        val dialog = AlertDialog.Builder(context)
+            .setView(view) // Đặt layout đã inflate vào AlertDialog
+            .create()
+
+        // Ánh xạ các view từ layout
+        val titleTextView = view.findViewById<TextView>(R.id.tvTitle)
+        val typeCategoryTextView = view.findViewById<TextView>(R.id.tvTypeCategory)
+        val descriptionTextView = view.findViewById<TextView>(R.id.tvDescription)
+        val btnClose = view.findViewById<ImageView>(R.id.btn_close)
+        val imgIcon = view.findViewById<ImageView>(R.id.img_icon)
+
+        titleTextView.text = category.title
+
+        typeCategoryTextView.text = if(category.type == 1) {
+             requireContext().getString(R.string.revenues)
+        } else {
+            requireContext().getString(R.string.expenses)
+        }
+
+        descriptionTextView.text = if (category.description.isNullOrEmpty()) {
+            requireContext().getString(R.string.empty)
+        } else {
+            category.description
+        }
+
+
+        val iconId =
+            requireContext().resources.getIdentifier("icon_back", "drawable", requireContext().packageName)
+        imgIcon.setImageResource(iconId)
+        btnClose.setOnClickListener {
+            dialog.dismiss() // Đóng AlertDialog khi hủy
+        }
+
+        // Hiển thị AlertDialog
+        dialog.show()
     }
+
 
     private fun showEditCategoryDialog(category: Category) {
         showCategoryDialog(category) { updatedCategory ->
@@ -83,14 +127,21 @@ class CategoryFragment : Fragment() {
 
     private fun showDeleteCategoryDialog(category: Category) {
         val dialogBuilder = AlertDialog.Builder(requireContext())
-            .setTitle("Delete Category")
-            .setMessage("Are you sure you want to delete the category '${category.title}'?")
-            .setPositiveButton("Delete") { dialog, _ ->
+            .setTitle(requireContext().getString(R.string.delete_category))
+            .setMessage("${requireContext().getString(R.string.delete_category_confirmation_1)} '${category.title}' ${requireContext().getString(R.string.delete_category_confirmation_2)}")
+            .setIcon(R.drawable.icon_warning)
+            .setPositiveButton(requireContext().getString(R.string.delete)) { dialog, _ ->
                 categoryManager.deleteCategory(category.id)
-//                categoryAdapter.deleteItem(category)
+                val tm = TransactionManager(requireContext())
+                val transactions = tm.getAllTransactions()
+                val listTransactionIdOfCategory = transactions.filter { it.category == category.title }.map {it.id}
+                listTransactionIdOfCategory.forEach { transactionId ->
+                    tm.deleteTransaction(transactionId)
+                }
+                categoryAdapter.deleteItem(category)
                 dialog.dismiss()
             }
-            .setNegativeButton("Cancel") { dialog, _ ->
+            .setNegativeButton(requireContext().getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
             }
 
@@ -102,7 +153,7 @@ class CategoryFragment : Fragment() {
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.layout_add_category, null)
         val dialogBuilder = AlertDialog.Builder(requireContext())
             .setView(dialogView)
-            .setTitle(if (category == null) "Add Category" else "Edit Category")
+            .setTitle(if (category == null) requireContext().getString(R.string.add_category) else requireContext().getString(R.string.edit_category))
 
         val alertDialog = dialogBuilder.show()
 
@@ -116,13 +167,14 @@ class CategoryFragment : Fragment() {
             setText(category?.description)
         }
         val addButton = dialogView.findViewById<Button>(R.id.buttonAdd).apply {
-            text = if (category == null) "Add" else "Update"
+            text = if (category == null) requireContext().getString(R.string.add) else requireContext().getString(R.string.update)
         }
         val spendingButton = dialogView.findViewById<MaterialButton>(R.id.spending)
         val incomeButton = dialogView.findViewById<MaterialButton>(R.id.income)
         val typeGroup = dialogView.findViewById<MaterialButtonToggleGroup>(R.id.type)
 
         setupToggleButtons(typeGroup, incomeButton, spendingButton, category?.type ?: 1)
+        Toast.makeText(requireContext(), category?.type.toString(), Toast.LENGTH_SHORT).show()
 
         addButton.setOnClickListener {
             val id = category?.id ?: UUID.randomUUID().toString()
@@ -133,6 +185,7 @@ class CategoryFragment : Fragment() {
             val type = if (incomeButton.isChecked) 1 else -1
 
             val newCategory = Category(id, title, color, icon, description, type)
+            Toast.makeText(requireContext(), type.toString(), Toast.LENGTH_SHORT).show()
             onSave(newCategory)
             alertDialog.dismiss()
         }
@@ -144,15 +197,10 @@ class CategoryFragment : Fragment() {
         spendingButton: MaterialButton,
         initialType: Int
     ) {
-        incomeButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.primary))
         var type = initialType
-        if (type == 1) {
-            incomeButton.isChecked = true
-        } else {
-            spendingButton.isChecked = true
-        }
+        updateButtonColors(incomeButton, spendingButton, type)
 
-        typeGroup.addOnButtonCheckedListener { group, checkedId, isChecked ->
+        typeGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
             if (isChecked) {
                 type = when (checkedId) {
                     R.id.income -> 1
@@ -166,9 +214,13 @@ class CategoryFragment : Fragment() {
 
     private fun updateButtonColors(incomeButton: MaterialButton, spendingButton: MaterialButton, type: Int) {
         if (type == 1) {
+            incomeButton.isChecked = true
+            spendingButton.isChecked = false
             incomeButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.primary))
             spendingButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.parent))
         } else {
+            spendingButton.isChecked = true
+            incomeButton.isChecked = false
             spendingButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.primary))
             incomeButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.parent))
         }
